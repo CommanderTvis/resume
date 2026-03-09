@@ -146,7 +146,7 @@ def build():
     # ═══════════════════════════════════════════════════════════════════
     # HEADER
     # ═══════════════════════════════════════════════════════════════════
-    story.append(Paragraph("Iaroslav Postovalov", s_name))
+    story.append(Paragraph("Iaroslav (Rick) Postovalov", s_name))
     story.append(
         Paragraph(
             f"Hannover, Germany &nbsp;&middot;&nbsp; "
