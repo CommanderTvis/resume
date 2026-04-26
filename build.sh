@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")"
-uv run resume.py
+latexmk -xelatex -interaction=nonstopmode -halt-on-error resume.tex
+latexmk -c

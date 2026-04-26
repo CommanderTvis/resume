@@ -1,0 +1,157 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[a4paper,top=1.1cm,bottom=1.1cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{ragged2e}
+\usepackage{needspace}
+
+% Fonts — sans-serif throughout
+\setmainfont{TeX Gyre Heros}[
+  Ligatures=TeX,
+  Scale=0.92
+]
+\newfontfamily\headerfont{TeX Gyre Heros}[
+  Ligatures=TeX
+]
+
+% Colors
+\definecolor{accent}{HTML}{1F3A5F}
+\definecolor{subtle}{HTML}{555555}
+\definecolor{rule}{HTML}{B0B0B0}
+
+% Hyperlinks
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accent,
+  linkcolor=accent
+}
+
+% Section formatting
+\titleformat{\section}
+  {\headerfont\large\bfseries\color{accent}}
+  {}{0em}
+  {\MakeUppercase}
+  [\vspace{-0.4em}{\color{rule}\rule{\linewidth}{0.5pt}}]
+\titlespacing*{\section}{0pt}{0.6em}{0.3em}
+
+% Subsection (job entries)
+\newcommand{\role}[4]{%
+  \needspace{4\baselineskip}%
+  \noindent\textbf{#1} \textemdash{} \textit{#2} \hfill {\small\color{subtle}#3}\\[-0.25em]
+  {\small\color{subtle}#4}\par\vspace{0.1em}
+}
+
+% Compact list
+\setlist[itemize]{
+  leftmargin=1.1em,
+  topsep=0.1em,
+  itemsep=0.1em,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+\pagenumbering{gobble}
+\emergencystretch=2em
+
+\begin{document}
+
+% =============== HEADER ===============
+\noindent
+{\headerfont\Huge\bfseries\color{accent} Iaroslav Postovalov}\\[0.4em]
+{\footnotesize
+  Hannover, Germany \;\textbar\; \href{mailto:postovalovya@gmail.com}{postovalovya@gmail.com} \;\textbar\; \href{https://linkedin.com/in/iaroslav-postovalov}{linkedin.com/in/iaroslav-postovalov} \;\textbar\; \href{https://github.com/commandertvis}{github.com/commandertvis} \;\textbar\; \href{https://commandertvis.github.io}{commandertvis.github.io}
+}
+
+\vspace{0.3em}
+
+% =============== SUMMARY ===============
+\noindent
+Compiler and JVM developer, 21 years old. Sole maintainer of a production blockchain language (\textasciitilde197K LOC Kotlin). On the Kotlin/JVM compiler team at JetBrains from age 17, part-time through university: IR backend, bytecode optimizations, inline class interop. Published research on JIT compilation targeting JVM, JavaScript, and WebAssembly.
+
+\vspace{0.3em}
+\noindent
+\textbf{Languages:} native Russian, fluent English \quad\textbar\quad \textbf{Legal status:} Russian citizenship, EU Blue Card (Germany)
+
+% =============== EXPERIENCE ===============
+\section*{Experience}
+
+\role{Software Engineer}{ChromaWay}{Apr 2025 -- Present}{Remote \textbullet{} Full-time (concurrent with online education)}
+\begin{itemize}
+  \item Sole maintainer (since Feb 2026) of Rell (\href{https://github.com/ChromiaProject/rell}{github.com/ChromiaProject/rell}), the primary language for the Chromia relational blockchain. Tree-walk interpreter with SQL generation, \textasciitilde197K LOC Kotlin.
+  \item New compiler IR: an immutable resolved tree decoupling parsing and typechecking from execution; replaces a runtime-coupled AST and opens a path to alternative backends (LLVM, GraalVM Truffle). FlatBuffers wire format; fuzz testing and round-trip checks on every build.
+  \item Codebase modularization into separate compiler frontend, IR, and runtime components. Runtime snapshots for blockchain state (co-author). PostgreSQL backend: query cancellation propagation, per-process schema isolation for parallel tests, unclosed-connection tracking.
+  \item New language features: \texttt{struct.copy()} for immutable updates with selective field overrides; \texttt{try\_call\_catch} / \texttt{try\_call\_result<T>} for structured error handling with automatic database rollback; \texttt{@disabled} test annotation; \texttt{@mount} for renaming entity fields without DB schema changes.
+  \item Build and developer tooling: Maven-to-Gradle migration (incremental builds, config cache); JUnit 4-to-5 migration with parallel execution. Maintainer of the LSP server, client stub generator, and stdlib doc plugin (all merged into the Rell monorepo). IntelliJ plugin: Chromia CLI integration with auto-detection and Docker-run fallback.
+  \item Codebase health: dependency reductions (Guava, Apache Commons, HttpClient $\rightarrow$ Kotlin/Java stdlib; Picocli $\rightarrow$ Clikt); locale-determinism fixes with a dedicated testing tool; reflection-based grammar hacks removed; Python integration tests rewritten in Kotlin. GitLab-to-GitHub auto-mirroring for 19 Chromia repositories. Parser benchmarks, end-to-end profiling tool, contributor and release-process documentation.
+\end{itemize}
+
+\role{Software Developer}{JetBrains (Kotlin Team)}{Sep 2022 -- Dec 2024}{Yerevan, then Bremen (Germany) \textbullet{} Part-time (concurrent with full-time education)}
+\begin{itemize}
+  \item Kotlin/JVM compiler team during the K2 frontend transition. IR backend, performance work, language features.
+  \item Memory allocation reductions in compiler frontend and IR lowering passes. Bytecode-level optimizations targeting boxing conversions in generated code.
+  \item \texttt{@JvmExposeBoxed} annotation: seamless integration of inline/value classes with Java callers.
+  \item Android testing infrastructure migration to the official Android Gradle Plugin framework. Compiler test renovation for the new K2 frontend, including test runs on Android.
+  \item Bug fixes in IR serialization and lazy declaration deserialization causing production compiler crashes.
+\end{itemize}
+
+\role{Software Developer (Intern)}{MiLaboratories}{Jul -- Aug 2022}{Remote}
+\begin{itemize}
+  \item Kotlin DSL with statistical and serialization features for an internal plotting library based on \texttt{lets-plot-kotlin}.
+\end{itemize}
+
+\role{Researcher}{JetBrains Research, Nuclear Physics Methods Lab}{Sep 2020 -- Apr 2022}{Dolgoprudny (Russia), then Remote}
+\begin{itemize}
+  \item Group's research scope: non-accelerator particle physics, numerical simulations, and software development for experimental physics.
+  \item Core developer of KMath (\href{https://github.com/SciProgCentre/kmath}{github.com/SciProgCentre/kmath}, 700+ stars), a cross-platform mathematical library for Kotlin. Core design contributions to the abstract algebra API, separating operations from data structures. N-dimensional array support, automatic differentiation, integrations with math libraries (EJML, ND4J, Commons Math).
+  \item Cross-platform expression compiler targeting JVM bytecode (ObjectWeb ASM), JavaScript, and WebAssembly from a single AST. Boxing/unboxing optimization pass with bytecode type state tracking. Paper: ``Compilation of mathematical expressions in Kotlin'' (arXiv:2102.07924).
+  \item \texttt{kmath-gsl}: Kotlin/Native bindings to the GNU Scientific Library via C interop, implementing matrices and vectors. Native build/toolchain setup, CI, documentation, performance benchmarking.
+  \item KMath-to-LaTeX renderer for computable expressions in Jupyter notebooks.
+\end{itemize}
+
+\role{Research Intern}{Lab. Math. Modeling, Lavrentiev Lyceum No. 130}{Sep 2019 -- Apr 2021}{Novosibirsk (Russia)}
+\begin{itemize}
+  \item Interactive system for studying probability distributions used in Monte Carlo methods (\href{https://gitlab.com/CMDR_Tvis/monte-carlo-script}{gitlab.com/CMDR\_Tvis/monte-carlo-script}). Custom DSL for defining formulas, with C++ tree interpreter and bytecode interpreter for performance research.
+  \item Kotlin/Ktor REST API for plot generation and function evaluation. Cross-platform bindings: Python via \texttt{ctypes}, Java/Kotlin via JNI. Diploma at the 58th International Scientific Student Conference (MNSK-2020).
+\end{itemize}
+
+% =============== TECHNICAL SKILLS ===============
+\needspace{6\baselineskip}
+\section*{Technical Skills}
+
+\noindent
+\small
+\begin{tabular}{@{}p{3.4cm}@{\hspace{0.5em}}p{14cm}@{}}
+\textbf{Languages} & Kotlin (expert), Java, C, Python, C\#, SQL \\[0.2em]
+\textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR); AST and IR design; lowering passes; type inference and checking; semantic analysis; code generation; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL); end-to-end compiler testing \\[0.2em]
+\textbf{JVM internals} & Bytecode generation (ObjectWeb ASM); invokedynamic; inline/value classes; allocation profiling; class loading; JNI/FFI; GraalVM \\[0.2em]
+\textbf{Performance} & Microbenchmarking (JMH), profiling, performance regression analysis, test automation \\[0.2em]
+\textbf{Tooling \& infra} & Git, Gradle, GitLab CI, PostgreSQL, Docker, JUnit 5, Linux, Kotlin Multiplatform, open source maintenance \\[0.2em]
+\textbf{Domain} & Blockchain smart contract languages, SQL codegen, scientific computing, mathematical library design, automatic differentiation, AI-assisted development \\
+\end{tabular}
+\normalsize
+
+% =============== EDUCATION ===============
+\section*{Education}
+
+\role{BSc Applied Computer Science}{Constructor University Bremen}{Sep 2023 -- Aug 2027}{}
+
+\role{Applied Mathematics \& CS}{Lomonosov Moscow State University, Yerevan Branch}{Sep 2022 -- Jun 2023}{}
+
+% =============== PUBLICATIONS & HONORS ===============
+\section*{Publications \& Honors}
+
+\begin{itemize}
+  \item \textbf{Preprint:} \textit{Compilation of mathematical expressions in Kotlin} --- arXiv, Feb 2021 (\href{https://arxiv.org/abs/2102.07924}{arXiv:2102.07924}).
+  \item \textbf{Paper:} \textit{NMPUD: a computer system for sampling and examining probability distributions} --- ITMM-2020 proceedings, Tomsk, 2021. Co-authored with Prof. A. Voytishek.
+  \item \textbf{Talk:} \textit{Dynamic compilation of mathematical expressions with Kotlin} --- SnowOne 2022 (JUGNsk), Novosibirsk.
+  \item \textbf{Winner, National Technology Olympiad} --- ``Automation of Business Processes'' track (1C partner case). HSE University, Moscow \textbullet{} Mar 2022.
+  \item \textbf{Volunteering:} Translator at Translators without Borders (Apr 2022 -- Feb 2023, 11 months).
+\end{itemize}
+
+\end{document}
