@@ -11,12 +11,19 @@
 \usepackage{ragged2e}
 \usepackage{needspace}
 
-% Fonts — sans-serif throughout
-\setmainfont{TeX Gyre Heros}[
+% Fonts — sans-serif throughout. Loaded by filename so kpsewhich resolves
+% them from the TeX tree on any platform (avoids relying on OS font registry).
+\setmainfont{texgyreheros-regular.otf}[
+  ItalicFont    = texgyreheros-italic.otf,
+  BoldFont      = texgyreheros-bold.otf,
+  BoldItalicFont= texgyreheros-bolditalic.otf,
   Ligatures=TeX,
   Scale=0.92
 ]
-\newfontfamily\headerfont{TeX Gyre Heros}[
+\newfontfamily\headerfont{texgyreheros-regular.otf}[
+  ItalicFont    = texgyreheros-italic.otf,
+  BoldFont      = texgyreheros-bold.otf,
+  BoldItalicFont= texgyreheros-bolditalic.otf,
   Ligatures=TeX
 ]
 
@@ -72,7 +79,7 @@
 
 % =============== SUMMARY ===============
 \noindent
-Compiler and JVM developer, 21 years old. Sole maintainer of a production blockchain language (\textasciitilde197K LOC Kotlin). On the Kotlin/JVM compiler team at JetBrains from age 17, part-time through university: IR backend, bytecode optimizations, inline class interop. Published research on JIT compilation targeting JVM, JavaScript, and WebAssembly.
+Compiler and JVM developer, 21 years old. Sole maintainer of a production blockchain language (\textasciitilde197K LOC Kotlin); shipped a new immutable serializable IR and a GraalVM Truffle peer backend alongside the existing tree-walking interpreter. On the Kotlin/JVM compiler team at JetBrains from age 17, part-time through university: IR backend, bytecode optimizations, inline class interop. Published research on JIT compilation targeting JVM, JavaScript, and WebAssembly.
 
 \vspace{0.3em}
 \noindent
@@ -83,12 +90,15 @@ Compiler and JVM developer, 21 years old. Sole maintainer of a production blockc
 
 \role{Software Engineer}{ChromaWay}{Apr 2025 -- Present}{Remote \textbullet{} Full-time (concurrent with online education)}
 \begin{itemize}
-  \item Sole maintainer (since Feb 2026) of Rell (\href{https://github.com/ChromiaProject/rell}{github.com/ChromiaProject/rell}), the primary language for the Chromia relational blockchain. Tree-walk interpreter with SQL generation, \textasciitilde197K LOC Kotlin.
-  \item New compiler IR: an immutable resolved tree decoupling parsing and typechecking from execution; replaces a runtime-coupled AST and opens a path to alternative backends (LLVM, GraalVM Truffle). FlatBuffers wire format; fuzz testing and round-trip checks on every build.
-  \item Codebase modularization into separate compiler frontend, IR, and runtime components. Runtime snapshots for blockchain state (co-author). PostgreSQL backend: query cancellation propagation, per-process schema isolation for parallel tests, unclosed-connection tracking.
-  \item New language features: \texttt{struct.copy()} for immutable updates with selective field overrides; \texttt{try\_call\_catch} / \texttt{try\_call\_result<T>} for structured error handling with automatic database rollback; \texttt{@disabled} test annotation; \texttt{@mount} for renaming entity fields without DB schema changes.
-  \item Build and developer tooling: Maven-to-Gradle migration (incremental builds, config cache); JUnit 4-to-5 migration with parallel execution. Maintainer of the LSP server, client stub generator, and stdlib doc plugin (all merged into the Rell monorepo). IntelliJ plugin: Chromia CLI integration with auto-detection and Docker-run fallback.
-  \item Codebase health: dependency reductions (Guava, Apache Commons, HttpClient $\rightarrow$ Kotlin/Java stdlib; Picocli $\rightarrow$ Clikt); locale-determinism fixes with a dedicated testing tool; reflection-based grammar hacks removed; Python integration tests rewritten in Kotlin. GitLab-to-GitHub auto-mirroring for 19 Chromia repositories. Parser benchmarks, end-to-end profiling tool, contributor and release-process documentation.
+  \item Sole maintainer (since Feb 2026) of Rell (\href{https://github.com/ChromiaProject/rell}{github.com/ChromiaProject/rell}), the smart-contract language of the Chromia relational blockchain. \textasciitilde197K LOC Kotlin; tree-walking AST interpreter, operators lowered to SQL against PostgreSQL.
+  \item New compiler IR \textemdash{} immutable, fully-resolved tree replacing a runtime-coupled AST. FlatBuffers wire format with bit-identical round-trip gate per CI build; drove the module split into separate frontend, IR, and runtime.
+  \item Second backend on the IR: a self-specializing AST interpreter on GraalVM Truffle (partial-evaluation JIT framework). CI gates for identical results across tree-walker, IR round-trip, and Truffle.
+  \item Replaced a hand-written combinator parser with an ANTLR4 grammar. Rebuilt PostgreSQL emission on jOOQ (typed SQL DSL), eliminating pre-existing bugs.
+  \item Co-authored runtime state snapshots for chains. PostgreSQL: query-cancellation propagation, per-process schema isolation for parallel tests, removal of a catalog-lock deadlock under concurrent chain boot.
+  \item New language features: \texttt{struct.copy()}, \texttt{try\_call\_catch} (structured error handling with automatic database rollback).
+  \item Maintainer of the LSP server, client stub generator, and stdlib doc generator; IntelliJ plugin with Chromia CLI integration. Maven$\rightarrow$Gradle and JUnit 4$\rightarrow$5 migrations.
+  \item Performance harness: JMH (Java Microbenchmark Harness) suites, Async Profiler automation. Per-commit performance reports on GitHub Pages. External-project regression toolkit in CI.
+  \item Codebase health: dependency cuts to stdlib (Guava, Apache Commons, HttpClient; Picocli $\rightarrow$ Clikt); locale-determinism fixes; Python integration tests rewritten in Kotlin.
 \end{itemize}
 
 \role{Software Developer}{JetBrains (Kotlin Team)}{Sep 2022 -- Dec 2024}{Yerevan, then Bremen (Germany) \textbullet{} Part-time (concurrent with full-time education)}
@@ -128,10 +138,10 @@ Compiler and JVM developer, 21 years old. Sole maintainer of a production blockc
 \small
 \begin{tabular}{@{}p{3.4cm}@{\hspace{0.5em}}p{14cm}@{}}
 \textbf{Languages} & Kotlin (expert), Java, C, Python, C\#, SQL \\[0.2em]
-\textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR); AST and IR design; lowering passes; type inference and checking; semantic analysis; code generation; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL); end-to-end compiler testing \\[0.2em]
-\textbf{JVM internals} & Bytecode generation (ObjectWeb ASM); invokedynamic; inline/value classes; allocation profiling; class loading; JNI/FFI; GraalVM \\[0.2em]
-\textbf{Performance} & Microbenchmarking (JMH), profiling, performance regression analysis, test automation \\[0.2em]
-\textbf{Tooling \& infra} & Git, Gradle, GitLab CI, PostgreSQL, Docker, JUnit 5, Linux, Kotlin Multiplatform, open source maintenance \\[0.2em]
+\textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR4, SLL/LL with error recovery); AST and IR design; immutable serializable IR (FlatBuffers); lowering passes; type inference and checking; semantic analysis; code generation; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk and AST-rewriting interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL); differential and end-to-end compiler testing \\[0.2em]
+\textbf{JVM internals} & Bytecode generation (ObjectWeb ASM); invokedynamic; inline/value classes; allocation profiling; class loading; JNI/FFI; GraalVM; Truffle language framework; partial evaluation; polyglot embedding \\[0.2em]
+\textbf{Performance} & Microbenchmarking (JMH); profiling (JFR, async-profiler); performance regression analysis; test automation \\[0.2em]
+\textbf{Tooling \& infra} & Git, Gradle, GitLab CI, PostgreSQL, jOOQ, Docker, JUnit 5, Linux, Kotlin Multiplatform, open source maintenance \\[0.2em]
 \textbf{Domain} & Blockchain smart contract languages, SQL codegen, scientific computing, mathematical library design, automatic differentiation, AI-assisted development \\
 \end{tabular}
 \normalsize
