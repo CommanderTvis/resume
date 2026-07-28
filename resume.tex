@@ -79,7 +79,7 @@
 
 % =============== SUMMARY ===============
 \noindent
-Compiler and JVM developer, 21 years old. Sole maintainer of a production blockchain language (\textasciitilde197K LOC Kotlin); shipped a new immutable serializable IR and a GraalVM Truffle peer backend alongside the existing tree-walking interpreter. On the Kotlin/JVM compiler team at JetBrains from age 17, part-time through university: IR backend, bytecode optimizations, inline class interop. Published research on JIT compilation targeting JVM, JavaScript, and WebAssembly.
+Backend and compiler engineer, 21 years old. Sole maintainer of a production blockchain language (\textasciitilde197K LOC Kotlin) whose operators lower to SQL against PostgreSQL; shipped a new immutable serializable IR and a second backend on GraalVM Truffle. Built and operate the company's self-hosted CI runner fleet on AWS in OpenTofu/Terraform, with per-project cost attribution and an enforced spend cap. On the Kotlin/JVM compiler team at JetBrains from age 17; published research on JIT compilation.
 
 \vspace{0.3em}
 \noindent
@@ -88,46 +88,52 @@ Compiler and JVM developer, 21 years old. Sole maintainer of a production blockc
 % =============== EXPERIENCE ===============
 \section*{Experience}
 
-\role{Software Engineer}{ChromaWay}{Apr 2025 -- Present}{Remote \textbullet{} Full-time (concurrent with online education)}
+\role{Software Engineer}{ChromaWay}{Apr 2025 -- Present}{One of the earliest blockchain companies (Stockholm, founded 2014) \textbullet{} Remote \textbullet{} Full-time (concurrent with online education)}
 \begin{itemize}
   \item Sole maintainer (since Feb 2026) of Rell (\href{https://github.com/ChromiaProject/rell}{github.com/ChromiaProject/rell}), the smart-contract language of the Chromia relational blockchain. \textasciitilde197K LOC Kotlin; tree-walking AST interpreter, operators lowered to SQL against PostgreSQL.
   \item New compiler IR \textemdash{} immutable, fully-resolved tree replacing a runtime-coupled AST. FlatBuffers wire format with bit-identical round-trip gate per CI build; drove the module split into separate frontend, IR, and runtime.
   \item Second backend on the IR: a self-specializing AST interpreter on GraalVM Truffle (partial-evaluation JIT framework). CI gates for identical results across tree-walker, IR round-trip, and Truffle.
-  \item Replaced a hand-written combinator parser with an ANTLR4 grammar. Rebuilt PostgreSQL emission on jOOQ (typed SQL DSL), eliminating pre-existing bugs.
-  \item Co-authored runtime state snapshots for chains. PostgreSQL: query-cancellation propagation, per-process schema isolation for parallel tests, removal of a catalog-lock deadlock under concurrent chain boot.
-  \item New language features: \texttt{struct.copy()}, \texttt{try\_call\_catch} (structured error handling with automatic database rollback).
-  \item Maintainer of the LSP server, client stub generator, and stdlib doc generator; IntelliJ plugin with Chromia CLI integration. Maven$\rightarrow$Gradle and JUnit 4$\rightarrow$5 migrations.
-  \item Performance harness: JMH (Java Microbenchmark Harness) suites, Async Profiler automation. Per-commit performance reports on GitHub Pages. External-project regression toolkit in CI.
-  \item Codebase health: dependency cuts to stdlib (Guava, Apache Commons, HttpClient; Picocli $\rightarrow$ Clikt); locale-determinism fixes; Python integration tests rewritten in Kotlin.
+  \item Self-hosted GitLab CI runner fleet on AWS: one ephemeral EC2 worker per job out of scale-from-zero Auto Scaling groups; S3 job cache, Docker Hub pull-through cache, least-privilege IAM. A scheduled Lambda attributes real billed spend per CI project from Cost Explorer resource-level data and enforces a hard monthly cap via an IAM deny policy, backed by an AWS Budgets action; Grafana dashboard as code over custom CloudWatch metrics.
+  \item PostgreSQL runtime: query-cancellation propagation, per-process schema isolation for parallel tests, removal of a catalog-lock deadlock under concurrent chain boot. Rebuilt SQL emission on jOOQ; replaced a combinator parser with an ANTLR4 grammar.
+  \item New language features: lambda expressions (lowered by lambda lifting); \texttt{return}/\texttt{break}/\texttt{continue} as expressions (typed by a bottom type); \texttt{try\_call\_catch} (error handling with automatic database rollback).
+  \item Maintainer of the LSP server, client stub generator, static-analysis linter, and stdlib doc generator; Chrome extension for Rell syntax highlighting on GitHub, GitLab, and Bitbucket.
+  \item Sole maintainer since Apr 2026 of the Rell plugin for JetBrains IDEs, published on the JetBrains Marketplace: the Rell version declared in a project's \texttt{chromia.yml} routes each file to a version-exact parser and language server, with checksum-verified on-demand download of older server runtimes. Replaced the GrammarKit/JFlex parser with the compiler's own ANTLR grammar, extracted at build time so IDE and compiler syntax cannot drift.
+  \item Performance harness: JMH suites, Async Profiler automation, per-commit performance reports; external-project regression toolkit in CI.
 \end{itemize}
 
 \role{Software Developer}{JetBrains (Kotlin Team)}{Sep 2022 -- Dec 2024}{Yerevan, then Bremen (Germany) \textbullet{} Part-time (concurrent with full-time education)}
 \begin{itemize}
   \item Kotlin/JVM compiler team during the K2 frontend transition. IR backend, performance work, language features.
   \item Memory allocation reductions in compiler frontend and IR lowering passes. Bytecode-level optimizations targeting boxing conversions in generated code.
-  \item \texttt{@JvmExposeBoxed} annotation: seamless integration of inline/value classes with Java callers.
-  \item Android testing infrastructure migration to the official Android Gradle Plugin framework. Compiler test renovation for the new K2 frontend, including test runs on Android.
-  \item Bug fixes in IR serialization and lazy declaration deserialization causing production compiler crashes.
+  \item \texttt{@JvmExposeBoxed} (inline/value-class interop with Java callers) and its Kotlin KEEP language-design proposal.
+  \item Android test infrastructure migration to the official Android Gradle Plugin framework and compiler test renovation for K2; fixes to IR serialization and lazy declaration deserialization causing production compiler crashes.
 \end{itemize}
 
-\role{Software Developer (Intern)}{MiLaboratories}{Jul -- Aug 2022}{Remote}
+\role{Software Developer (Intern)}{MiLaboratories}{Jul -- Aug 2022}{Bioinformatics; software for immune-system sequencing data (San Francisco) \textbullet{} Remote}
 \begin{itemize}
   \item Kotlin DSL with statistical and serialization features for an internal plotting library based on \texttt{lets-plot-kotlin}.
 \end{itemize}
 
-\role{Researcher}{JetBrains Research, Nuclear Physics Methods Lab}{Sep 2020 -- Apr 2022}{Dolgoprudny (Russia), then Remote}
+\role{Researcher}{JetBrains Research, Nuclear Physics Methods Lab}{Sep 2020 -- Apr 2022}{Non-accelerator particle physics, numerical simulation, and software for experimental physics \textbullet{} Dolgoprudny (Russia), then Remote}
 \begin{itemize}
-  \item Group's research scope: non-accelerator particle physics, numerical simulations, and software development for experimental physics.
-  \item Core developer of KMath (\href{https://github.com/SciProgCentre/kmath}{github.com/SciProgCentre/kmath}, 700+ stars), a cross-platform mathematical library for Kotlin. Core design contributions to the abstract algebra API, separating operations from data structures. N-dimensional array support, automatic differentiation, integrations with math libraries (EJML, ND4J, Commons Math).
-  \item Cross-platform expression compiler targeting JVM bytecode (ObjectWeb ASM), JavaScript, and WebAssembly from a single AST. Boxing/unboxing optimization pass with bytecode type state tracking. Paper: ``Compilation of mathematical expressions in Kotlin'' (arXiv:2102.07924).
-  \item \texttt{kmath-gsl}: Kotlin/Native bindings to the GNU Scientific Library via C interop, implementing matrices and vectors. Native build/toolchain setup, CI, documentation, performance benchmarking.
-  \item KMath-to-LaTeX renderer for computable expressions in Jupyter notebooks.
+  \item Core developer of KMath (\href{https://github.com/SciProgCentre/kmath}{github.com/SciProgCentre/kmath}, 700+ stars), a cross-platform mathematical library for Kotlin: algebra API design separating operations from data structures, N-dimensional arrays, automatic differentiation, EJML and ND4J integrations.
+  \item Cross-platform expression compiler targeting JVM bytecode (ObjectWeb ASM), JavaScript, and WebAssembly from a single AST, with a boxing/unboxing optimization pass over bytecode type state.
+  \item \texttt{kmath-gsl}: Kotlin/Native bindings to the GNU Scientific Library via C interop. Native build and toolchain setup, CI, benchmarking.
 \end{itemize}
 
 \role{Research Intern}{Lab. Math. Modeling, Lavrentiev Lyceum No. 130}{Sep 2019 -- Apr 2021}{Novosibirsk (Russia)}
 \begin{itemize}
-  \item Interactive system for studying probability distributions used in Monte Carlo methods (\href{https://gitlab.com/CMDR_Tvis/monte-carlo-script}{gitlab.com/CMDR\_Tvis/monte-carlo-script}). Custom DSL for defining formulas, with C++ tree interpreter and bytecode interpreter for performance research.
-  \item Kotlin/Ktor REST API for plot generation and function evaluation. Cross-platform bindings: Python via \texttt{ctypes}, Java/Kotlin via JNI. Diploma at the 58th International Scientific Student Conference (MNSK-2020).
+  \item System for studying probability distributions used in Monte Carlo methods (\href{https://gitlab.com/CMDR_Tvis/monte-carlo-script}{gitlab.com/CMDR\_Tvis/monte-carlo-script}): custom DSL with C++ tree-walking and bytecode interpreters, a Kotlin/Ktor REST API, and Python and JNI bindings. Diploma, MNSK-2020.
+\end{itemize}
+
+% =============== PROJECTS ===============
+\needspace{8\baselineskip}
+\section*{Projects}
+
+\begin{itemize}
+  \item \textbf{Telegram dating product} \textemdash{} co-founded, Mar--Aug 2025; \textasciitilde20K LOC Python. Ran in production on aiogram and PostgreSQL: paid subscriptions, LLM content moderation, percentage-rollout feature flags. GPT-4o generated each user's profile from structured interest data returned by the \href{https://vox-lab.com/}{vox-lab.com} API, whose 768-dimensional embedding drove pgvector nearest-neighbour matching.
+  \item \textbf{hue-manager} \textemdash{} self-hosted Philips Hue automation, solo, \textasciitilde7.7K LOC Kotlin: Quarkus backend as a GraalVM native image, Compose Multiplatform clients (desktop, Kotlin/Wasm web, Android), an MCP server behind OAuth 2.1 (Ory Hydra, PKCE). CI builds the native image and runs a smoke test that boots it and asserts nine HTTP contracts before deployment.
+  \item \textbf{Self-hosted service platform} \textemdash{} 19 Docker Compose containers on one Hetzner host behind Caddy and a Cloudflare Tunnel, push-to-deploy from GitHub Actions, Vector/VictoriaLogs log aggregation, two Cloudflare Workers.
 \end{itemize}
 
 % =============== TECHNICAL SKILLS ===============
@@ -137,12 +143,12 @@ Compiler and JVM developer, 21 years old. Sole maintainer of a production blockc
 \noindent
 \small
 \begin{tabular}{@{}p{3.4cm}@{\hspace{0.5em}}p{14cm}@{}}
-\textbf{Languages} & Kotlin (expert), Java, C, Python, C\#, SQL \\[0.2em]
-\textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR4, SLL/LL with error recovery); AST and IR design; immutable serializable IR (FlatBuffers); lowering passes; type inference and checking; semantic analysis; code generation; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk and AST-rewriting interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL); differential and end-to-end compiler testing \\[0.2em]
-\textbf{JVM internals} & Bytecode generation (ObjectWeb ASM); invokedynamic; inline/value classes; allocation profiling; class loading; JNI/FFI; GraalVM; Truffle language framework; partial evaluation; polyglot embedding \\[0.2em]
-\textbf{Performance} & Microbenchmarking (JMH); profiling (JFR, async-profiler); performance regression analysis; test automation \\[0.2em]
-\textbf{Tooling \& infra} & Git, Gradle, GitLab CI, PostgreSQL, jOOQ, Docker, JUnit 5, Linux, Kotlin Multiplatform, open source maintenance \\[0.2em]
-\textbf{Domain} & Blockchain smart contract languages, SQL codegen, scientific computing, mathematical library design, automatic differentiation, AI-assisted development \\
+\textbf{Languages} & Kotlin (expert), Java, Python, SQL, C, C\#, TypeScript \\[0.2em]
+\textbf{Cloud \& infra} & AWS (EC2, Auto Scaling, VPC, IAM, Lambda, S3, SSM, CloudWatch); OpenTofu\slash Terraform; Docker Compose; GitLab CI, GitHub Actions; Grafana, VictoriaLogs; Cloudflare Workers, D1, Access; Caddy, Linux \\[0.2em]
+\textbf{Backend \& data} & PostgreSQL (query cancellation, schema isolation, deadlock analysis), jOOQ, pgvector, SQLite; SQL code generation; REST services (Quarkus, Ktor); OAuth 2.1 / OIDC; Gradle, JUnit, Git \\[0.2em]
+\textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR4, LL with error recovery); AST and IR design; immutable serializable IR (FlatBuffers); lowering, type inference, semantic analysis; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk and self-specializing interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL); differential compiler testing \\[0.2em]
+\textbf{JVM \& performance} & Bytecode generation (ObjectWeb ASM); invokedynamic; inline/value classes; class loading; allocation profiling; JNI/FFI; GraalVM, Truffle, partial evaluation, native image; Kotlin Multiplatform; microbenchmarking (JMH); profiling (JFR, async-profiler); regression tracking in CI \\[0.2em]
+\textbf{Domain} & Blockchain smart-contract languages; SQL codegen; developer tooling (LSP, IntelliJ plugins); scientific computing, automatic differentiation; Model Context Protocol; AI-assisted development \\
 \end{tabular}
 \normalsize
 
@@ -157,9 +163,7 @@ Compiler and JVM developer, 21 years old. Sole maintainer of a production blockc
 \section*{Publications \& Honors}
 
 \begin{itemize}
-  \item \textbf{Preprint:} \textit{Compilation of mathematical expressions in Kotlin} --- arXiv, Feb 2021 (\href{https://arxiv.org/abs/2102.07924}{arXiv:2102.07924}).
-  \item \textbf{Paper:} \textit{NMPUD: a computer system for sampling and examining probability distributions} --- ITMM-2020 proceedings, Tomsk, 2021. Co-authored with Prof. A. Voytishek.
-  \item \textbf{Talk:} \textit{Dynamic compilation of mathematical expressions with Kotlin} --- SnowOne 2022 (JUGNsk), Novosibirsk.
+  \item \textbf{Publications:} \textit{Compilation of mathematical expressions in Kotlin} --- arXiv, Feb 2021 (\href{https://arxiv.org/abs/2102.07924}{arxiv.org/abs/2102.07924}); \textit{NMPUD: a computer system for sampling and examining probability distributions} --- ITMM-2020 proceedings, Tomsk, 2021, with Prof. A. Voytishek. Talk: \textit{Dynamic compilation of mathematical expressions with Kotlin} --- SnowOne 2022 (JUGNsk), Novosibirsk.
   \item \textbf{Winner, National Technology Olympiad} --- ``Automation of Business Processes'' track (1C partner case). HSE University, Moscow \textbullet{} Mar 2022.
   \item \textbf{Volunteering:} Translator at Translators without Borders (Apr 2022 -- Feb 2023, 11 months).
 \end{itemize}
