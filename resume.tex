@@ -79,26 +79,26 @@
 
 % =============== SUMMARY ===============
 \noindent
-Backend and compiler engineer, 21 years old. Sole maintainer of a production blockchain language (\textasciitilde197K LOC Kotlin) whose operators lower to SQL against PostgreSQL; shipped a new immutable serializable IR and a second backend on GraalVM Truffle. Built and operate the company's self-hosted CI runner fleet on AWS in OpenTofu/Terraform, with per-project cost attribution and an enforced spend cap. On the Kotlin/JVM compiler team at JetBrains from age 17; published research on JIT compilation.
+Backend and compiler engineer. Inherited, as sole maintainer, a production blockchain language (\textasciitilde197K LOC Kotlin) that compiles its database operators to SQL on PostgreSQL; re-architected it around a new immutable serializable IR and shipped a second backend on GraalVM Truffle. Built and operate the company's self-hosted CI runner fleet on AWS in OpenTofu/Terraform, with per-project cost attribution and an enforced spend cap. On the Kotlin/JVM compiler team at JetBrains from age 17; published research on JIT compilation.
 
 \vspace{0.3em}
 \noindent
-\textbf{Languages:} native Russian, fluent English \quad\textbar\quad \textbf{Legal status:} Russian citizenship, EU Blue Card (Germany)
+\textbf{Languages:} native Russian, fluent English \quad\textbar\quad \textbf{Legal status:} EU Blue Card (Germany) \textemdash{} authorized to work in software engineering, no sponsorship required
 
 % =============== EXPERIENCE ===============
 \section*{Experience}
 
-\role{Software Engineer}{ChromaWay}{Apr 2025 -- Present}{One of the earliest blockchain companies (Stockholm, founded 2014) \textbullet{} Remote \textbullet{} Full-time (concurrent with online education)}
+\role{Software Engineer}{ChromaWay}{Apr 2025 -- Present}{Blockchain infrastructure company (Stockholm, founded 2014) \textbullet{} Remote \textbullet{} Full-time (concurrent with online education)}
 \begin{itemize}
-  \item Sole maintainer (since Feb 2026) of Rell (\href{https://github.com/ChromiaProject/rell}{github.com/ChromiaProject/rell}), the smart-contract language of the Chromia relational blockchain. \textasciitilde197K LOC Kotlin; tree-walking AST interpreter, operators lowered to SQL against PostgreSQL.
+  \item Took over Rell (\href{https://github.com/ChromiaProject/rell}{github.com/ChromiaProject/rell}), the smart-contract language of the Chromia relational blockchain, as sole maintainer in Feb 2026 after contributing since Apr 2025. \textasciitilde197K LOC Kotlin; tree-walking AST interpreter, operators lowered to SQL against PostgreSQL.
   \item New compiler IR \textemdash{} immutable, fully-resolved tree replacing a runtime-coupled AST. FlatBuffers wire format with bit-identical round-trip gate per CI build; drove the module split into separate frontend, IR, and runtime.
-  \item Second backend on the IR: a self-specializing AST interpreter on GraalVM Truffle (partial-evaluation JIT framework). CI gates for identical results across tree-walker, IR round-trip, and Truffle.
+  \item Second backend on the IR: a self-specializing AST interpreter on GraalVM Truffle (partial-evaluation JIT framework); production-ready behind an opt-in flag, at full test parity. CI gates for identical results across tree-walker, IR round-trip, and Truffle.
+  \item New language features: lambda expressions (lowered by lambda lifting); \texttt{return}/\texttt{break}/\texttt{continue} as expressions (typed by a bottom type); \texttt{try\_call\_catch} (error handling with automatic database rollback).
   \item Self-hosted GitLab CI runner fleet on AWS: one ephemeral EC2 worker per job out of scale-from-zero Auto Scaling groups; S3 job cache, Docker Hub pull-through cache, least-privilege IAM. A scheduled Lambda attributes real billed spend per CI project from Cost Explorer resource-level data and enforces a hard monthly cap via an IAM deny policy, backed by an AWS Budgets action; Grafana dashboard as code over custom CloudWatch metrics.
   \item PostgreSQL runtime: query-cancellation propagation, per-process schema isolation for parallel tests, removal of a catalog-lock deadlock under concurrent chain boot. Rebuilt SQL emission on jOOQ; replaced a combinator parser with an ANTLR4 grammar.
-  \item New language features: lambda expressions (lowered by lambda lifting); \texttt{return}/\texttt{break}/\texttt{continue} as expressions (typed by a bottom type); \texttt{try\_call\_catch} (error handling with automatic database rollback).
-  \item Maintainer of the LSP server, client stub generator, static-analysis linter, and stdlib doc generator; Chrome extension for Rell syntax highlighting on GitHub, GitLab, and Bitbucket.
-  \item Sole maintainer since Apr 2026 of the Rell plugin for JetBrains IDEs, published on the JetBrains Marketplace: the Rell version declared in a project's \texttt{chromia.yml} routes each file to a version-exact parser and language server, with checksum-verified on-demand download of older server runtimes. Replaced the GrammarKit/JFlex parser with the compiler's own ANTLR grammar, extracted at build time so IDE and compiler syntax cannot drift.
-  \item Performance harness: JMH suites, Async Profiler automation, per-commit performance reports; external-project regression toolkit in CI.
+  \item Maintainer of the LSP server, client stub generator, static-analysis linter, and stdlib doc generator.
+  \item Sole maintainer since Apr 2026 of the Rell plugin for JetBrains IDEs, published on the JetBrains Marketplace. Built its multi-version support: routes each file to a parser and language server matching the Rell version the project declares, downloading older server runtimes on demand with checksum verification. Replaced the GrammarKit/JFlex parser with the compiler's own ANTLR grammar, extracted at build time so IDE and compiler syntax cannot drift.
+  \item Performance harness: JMH suites, Async Profiler automation, \href{https://web.archive.org/web/20260728114727/https://chromaway.gitlab.io/rell/bench-dev-ae4c82b2/report.html}{per-commit performance reports}; external-project regression toolkit in CI.
 \end{itemize}
 
 \role{Software Developer}{JetBrains (Kotlin Team)}{Sep 2022 -- Dec 2024}{Yerevan, then Bremen (Germany) \textbullet{} Part-time (concurrent with full-time education)}
@@ -131,7 +131,7 @@ Backend and compiler engineer, 21 years old. Sole maintainer of a production blo
 \section*{Projects}
 
 \begin{itemize}
-  \item \textbf{Telegram dating product} \textemdash{} co-founded, Mar--Aug 2025; \textasciitilde20K LOC Python. Ran in production on aiogram and PostgreSQL: paid subscriptions, LLM content moderation, percentage-rollout feature flags. GPT-4o generated each user's profile from structured interest data returned by the \href{https://vox-lab.com/}{vox-lab.com} API, whose 768-dimensional embedding drove pgvector nearest-neighbour matching.
+  \item \textbf{Telegram dating product} \textemdash{} co-founded, Mar--Aug 2025; \textasciitilde20K LOC Python. Ran in production for \textasciitilde3 months on aiogram and PostgreSQL: paid subscriptions, LLM content moderation, percentage-rollout feature flags. GPT-4o generated each user's profile from structured interest data supplied by the \href{https://vox-lab.com/}{vox-lab.com} API; a separate 768-dimensional embedding from the same API drove pgvector nearest-neighbour matching.
   \item \textbf{hue-manager} \textemdash{} self-hosted Philips Hue automation, solo, \textasciitilde7.7K LOC Kotlin: Quarkus backend as a GraalVM native image, Compose Multiplatform clients (desktop, Kotlin/Wasm web, Android), an MCP server behind OAuth 2.1 (Ory Hydra, PKCE). CI builds the native image and runs a smoke test that boots it and asserts nine HTTP contracts before deployment.
   \item \textbf{Self-hosted service platform} \textemdash{} 19 Docker Compose containers on one Hetzner host behind Caddy and a Cloudflare Tunnel, push-to-deploy from GitHub Actions, Vector/VictoriaLogs log aggregation, two Cloudflare Workers.
 \end{itemize}
@@ -143,10 +143,10 @@ Backend and compiler engineer, 21 years old. Sole maintainer of a production blo
 \noindent
 \small
 \begin{tabular}{@{}p{3.4cm}@{\hspace{0.5em}}p{14cm}@{}}
-\textbf{Languages} & Kotlin (expert), Java, Python, SQL, C, C\#, TypeScript \\[0.2em]
+\textbf{Languages} & Kotlin (expert), Java, Python, SQL, C, C\# \\[0.2em]
 \textbf{Cloud \& infra} & AWS (EC2, Auto Scaling, VPC, IAM, Lambda, S3, SSM, CloudWatch); OpenTofu\slash Terraform; Docker Compose; GitLab CI, GitHub Actions; Grafana, VictoriaLogs; Cloudflare Workers, D1, Access; Caddy, Linux \\[0.2em]
 \textbf{Backend \& data} & PostgreSQL (query cancellation, schema isolation, deadlock analysis), jOOQ, pgvector, SQLite; SQL code generation; REST services (Quarkus, Ktor); OAuth 2.1 / OIDC; Gradle, JUnit, Git \\[0.2em]
-\textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR4, LL with error recovery); AST and IR design; immutable serializable IR (FlatBuffers); lowering, type inference, semantic analysis; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk and self-specializing interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL); differential compiler testing \\[0.2em]
+\textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR4, LL with error recovery); AST and IR design; immutable serializable IR (FlatBuffers); lowering; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk and self-specializing interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL); differential compiler testing \\[0.2em]
 \textbf{JVM \& performance} & Bytecode generation (ObjectWeb ASM); invokedynamic; inline/value classes; class loading; allocation profiling; JNI/FFI; GraalVM, Truffle, partial evaluation, native image; Kotlin Multiplatform; microbenchmarking (JMH); profiling (JFR, async-profiler); regression tracking in CI \\[0.2em]
 \textbf{Domain} & Blockchain smart-contract languages; SQL codegen; developer tooling (LSP, IntelliJ plugins); scientific computing, automatic differentiation; Model Context Protocol; AI-assisted development \\
 \end{tabular}
