@@ -79,33 +79,34 @@
 
 % =============== SUMMARY ===============
 \noindent
-Backend and compiler engineer. Inherited, as sole maintainer, a production blockchain language (\textasciitilde197K LOC Kotlin) that compiles its database operators to SQL on PostgreSQL; re-architected it around a new immutable serializable IR and shipped a second backend on GraalVM Truffle. Built and operate the company's self-hosted CI runner fleet on AWS in OpenTofu/Terraform, with per-project cost attribution and an enforced spend cap. On the Kotlin/JVM compiler team at JetBrains from age 17; published research on JIT compilation.
+Backend and compiler engineer. Inherited, as sole maintainer, a production blockchain language (\textasciitilde197K LOC Kotlin) that compiles its database operators to SQL on PostgreSQL; re-architected it around a new immutable serializable IR and shipped a second backend on GraalVM Truffle. Built and operated the company's self-hosted CI runner fleet on AWS in OpenTofu/Terraform, with per-project cost attribution and an enforced spend cap. On the Kotlin/JVM compiler team at JetBrains from age 17; published research on JIT compilation.
 
 \vspace{0.3em}
 \noindent
-\textbf{Languages:} native Russian, fluent English \quad\textbar\quad \textbf{Legal status:} EU Blue Card (Germany) \textemdash{} authorized to work in software engineering, no sponsorship required
+\textbf{Languages:} native Russian, fluent English \quad\textbar\quad \textbf{Legal status:} EU Blue Card (Germany), no sponsorship required
 
 % =============== EXPERIENCE ===============
 \section*{Experience}
 
 \role{Software Engineer}{ChromaWay}{Apr 2025 -- Present}{Blockchain infrastructure company (Stockholm, founded 2014) \textbullet{} Remote \textbullet{} Full-time (concurrent with online education)}
 \begin{itemize}
-  \item Took over Rell (\href{https://github.com/ChromiaProject/rell}{github.com/ChromiaProject/rell}), the smart-contract language of the Chromia relational blockchain, as sole maintainer in Feb 2026 after contributing since Apr 2025. \textasciitilde197K LOC Kotlin; tree-walking AST interpreter, operators lowered to SQL against PostgreSQL.
+  \item Was sole maintainer, from Feb 2026 after contributing from Apr 2025, of \href{https://github.com/ChromiaProject/rell}{Rell} (\url{github.com/ChromiaProject/rell}), the smart-contract language of the Chromia relational blockchain. \textasciitilde197K LOC Kotlin; tree-walking AST interpreter, operators lowered to SQL against PostgreSQL.
   \item New compiler IR \textemdash{} immutable, fully-resolved tree replacing a runtime-coupled AST. FlatBuffers wire format with bit-identical round-trip gate per CI build; drove the module split into separate frontend, IR, and runtime.
-  \item Second backend on the IR: a self-specializing AST interpreter on GraalVM Truffle (partial-evaluation JIT framework); production-ready behind an opt-in flag, at full test parity. CI gates for identical results across tree-walker, IR round-trip, and Truffle.
-  \item New language features: lambda expressions (lowered by lambda lifting); \texttt{return}/\texttt{break}/\texttt{continue} as expressions (typed by a bottom type); \texttt{try\_call\_catch} (error handling with automatic database rollback).
-  \item Self-hosted GitLab CI runner fleet on AWS: one ephemeral EC2 worker per job out of scale-from-zero Auto Scaling groups; S3 job cache, Docker Hub pull-through cache, least-privilege IAM. A scheduled Lambda attributes real billed spend per CI project from Cost Explorer resource-level data and enforces a hard monthly cap via an IAM deny policy, backed by an AWS Budgets action; Grafana dashboard as code over custom CloudWatch metrics.
-  \item PostgreSQL runtime: query-cancellation propagation, per-process schema isolation for parallel tests, removal of a catalog-lock deadlock under concurrent chain boot. Rebuilt SQL emission on jOOQ; replaced a combinator parser with an ANTLR4 grammar.
-  \item Maintainer of the LSP server, client stub generator, static-analysis linter, and stdlib doc generator.
-  \item Sole maintainer since Apr 2026 of the Rell plugin for JetBrains IDEs, published on the JetBrains Marketplace. Built its multi-version support: routes each file to a parser and language server matching the Rell version the project declares, downloading older server runtimes on demand with checksum verification. Replaced the GrammarKit/JFlex parser with the compiler's own ANTLR grammar, extracted at build time so IDE and compiler syntax cannot drift.
-  \item Performance harness: JMH suites, Async Profiler automation, \href{https://web.archive.org/web/20260728114727/https://chromaway.gitlab.io/rell/bench-dev-ae4c82b2/report.html}{per-commit performance reports}; external-project regression toolkit in CI.
+  \item Second backend on the IR: a self-specializing AST interpreter on GraalVM Truffle (partial-evaluation JIT); production-ready behind an opt-in flag, at full test parity. Published \href{https://github.com/CommanderTvis/writing/tree/main/rr-truffle-rewrite}{a write-up of that rewrite} (\url{github.com/CommanderTvis/writing/tree/main/rr-truffle-rewrite}): the IR and Truffle backend were my design, implemented over five weeks with AI coding agents.
+  \item New language features: lambda expressions (lowered by lambda lifting); \texttt{return}/\texttt{break}/\texttt{continue} as expressions (typed by a bottom type); \texttt{try\_call\_catch} (automatic database transaction rollback on error).
+  \item Built and operated the company's self-hosted GitLab CI runner fleet on AWS (\textasciitilde4.2K LOC OpenTofu/Terraform): persistent manager running \texttt{docker-autoscaler} with scale-from-zero Auto Scaling groups in an own VPC; S3 job cache, Docker Hub pull-through cache, least-privilege IAM. Scheduled Lambda reconstructing real billed per-project spend from Cost Explorer data, enforcing a hard monthly cap via IAM deny policy; Grafana dashboard as code.
+  \item PostgreSQL runtime: query-cancellation propagation, per-process schema isolation for parallel tests, removal of a catalog-lock deadlock under concurrent chain boot. Rebuilt SQL emission on jOOQ; replaced combinator parser with an ANTLR4 grammar shared with the IDE.
+  \item Maintained the LSP server, client stub generator, library documentation tool, and static-analysis linter and formatter (AST-pattern inspections with auto-fixes and per-inspection severities, including an SQL-performance-aware rule flagging row-by-row entity reads in loops).
+  \item Editor integrations: moved the IntelliJ plugin's parser onto \texttt{antlr4-intellij-adaptor} and its language support onto the built-in LSP client (JetBrains Marketplace plugin 22585, released from CI with Plugin Verifier gating). Multi-version support in IntelliJ and VS Code: per-version ANTLR parsers and language servers resolved against SHA-256 lockfiles.
+  \item Created the \href{https://chromiaproject.github.io/rell-playground/}{browser playground} (\url{chromiaproject.github.io/rell-playground}): a TypeScript single-page app over compiler and interpreter AOT-compiled to a single JavaScript module with TeaVM --- no backend --- with Run, REPL, and SQL dry-run modes.
+  \item Performance harness: JMH suites, Async Profiler automation, \href{https://chromaway.gitlab.io/rell/bench-dev-ae4c82b2/report.html}{per-commit performance reports} (\url{chromaway.gitlab.io/rell/bench-dev-ae4c82b2/report.html}); cross-project regression harness in CI running downstream applications' test suites against every compiler build.
 \end{itemize}
 
 \role{Software Developer}{JetBrains (Kotlin Team)}{Sep 2022 -- Dec 2024}{Yerevan, then Bremen (Germany) \textbullet{} Part-time (concurrent with full-time education)}
 \begin{itemize}
   \item Kotlin/JVM compiler team during the K2 frontend transition. IR backend, performance work, language features.
   \item Memory allocation reductions in compiler frontend and IR lowering passes. Bytecode-level optimizations targeting boxing conversions in generated code.
-  \item \texttt{@JvmExposeBoxed} (inline/value-class interop with Java callers) and its Kotlin KEEP language-design proposal.
+  \item Java interop for Kotlin's inline/value classes across frontend, JVM backend, and standard library (\texttt{@JvmExposeBoxed}) --- and authored the corresponding Kotlin language-design proposal (KEEP).
   \item Android test infrastructure migration to the official Android Gradle Plugin framework and compiler test renovation for K2; fixes to IR serialization and lazy declaration deserialization causing production compiler crashes.
 \end{itemize}
 
@@ -133,6 +134,7 @@ Backend and compiler engineer. Inherited, as sole maintainer, a production block
 \begin{itemize}
   \item \textbf{Telegram dating product} \textemdash{} co-founded, Mar--Aug 2025; \textasciitilde20K LOC Python. Ran in production for \textasciitilde3 months on aiogram and PostgreSQL: paid subscriptions, LLM content moderation, percentage-rollout feature flags. GPT-4o generated each user's profile from structured interest data supplied by the \href{https://vox-lab.com/}{vox-lab.com} API; a separate 768-dimensional embedding from the same API drove pgvector nearest-neighbour matching.
   \item \textbf{hue-manager} \textemdash{} self-hosted Philips Hue automation, solo, \textasciitilde7.7K LOC Kotlin: Quarkus backend as a GraalVM native image, Compose Multiplatform clients (desktop, Kotlin/Wasm web, Android), an MCP server behind OAuth 2.1 (Ory Hydra, PKCE). CI builds the native image and runs a smoke test that boots it and asserts nine HTTP contracts before deployment.
+  \item \textbf{JetBrains ThinkRail} \textemdash{} external contributor, in TypeScript, to \href{https://github.com/JetBrains/thinkrail}{JetBrains ThinkRail} (\url{github.com/JetBrains/thinkrail}), JetBrains' open-source spec-driven coding agent: cached open-review lookups across workspace switches, terminal-session PTY restore fixes, and editor UI on the specification tree, tab strip and tooltips.
   \item \textbf{Self-hosted service platform} \textemdash{} 19 Docker Compose containers on one Hetzner host behind Caddy and a Cloudflare Tunnel, push-to-deploy from GitHub Actions, Vector/VictoriaLogs log aggregation, two Cloudflare Workers.
 \end{itemize}
 
