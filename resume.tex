@@ -83,7 +83,7 @@ Backend and compiler engineer. Inherited, as sole maintainer, a production block
 
 \vspace{0.3em}
 \noindent
-\textbf{Languages:} native Russian, fluent English \quad\textbar\quad \textbf{Legal status:} EU Blue Card (Germany), no sponsorship required
+\textbf{Languages:} native Russian, fluent English \quad\textbar\quad \textbf{Legal status:} EU Blue Card (Germany)
 
 % =============== EXPERIENCE ===============
 \section*{Experience}
@@ -96,7 +96,7 @@ Backend and compiler engineer. Inherited, as sole maintainer, a production block
   \item New language features: lambda expressions; \texttt{return}/\texttt{break}/\texttt{continue} as expressions of bottom type; \texttt{try\_call\_catch}.
   \item Built and operated the company's self-hosted GitLab CI runner fleet on AWS: persistent manager running \texttt{docker-autoscaler} with Auto Scaling groups in an own VPC; S3 job cache, Docker Hub pull-through cache. Scheduled Lambda reconstructing billed per-project spend from Cost Explorer data, enforcing a hard monthly cap; Grafana dashboard.
   \item PostgreSQL runtime: query-cancellation propagation, per-process schema isolation for parallel tests, removal of a catalog-lock deadlock under concurrent chain boot. Rebuilt SQL emission on jOOQ; replaced combinator parser with an ANTLR4 grammar shared with the IDE.
-  \item Maintained the LSP server, library documentation tool, and static-analysis linter and formatter (AST-pattern inspections with auto-fixes and per-inspection severities, including an SQL-performance-aware rule flagging row-by-row entity reads in loops).
+  \item Maintained the LSP server, library documentation tool, and static-analysis linter and formatter.
   \item Editor integrations: moved the IntelliJ plugin's parser onto \texttt{antlr4-intellij-adaptor} and its language support onto the built-in LSP client (JetBrains Marketplace plugin 22585, released from CI with Plugin Verifier gating). Compatibility mode in IntelliJ and VS Code: per-version ANTLR parsers and language servers resolved against SHA-256 lockfiles.
   \item Created the \href{https://chromiaproject.github.io/rell-playground/}{browser playground} (\url{chromiaproject.github.io/rell-playground}): a TypeScript single-page app over compiler and interpreter AOT-compiled to a JS module with TeaVM, without backend.
   \item Performance harness: JMH suites, Async Profiler automation, \href{https://chromaway.gitlab.io/rell/bench-dev-ae4c82b2/report.html}{per-commit performance reports} (\url{chromaway.gitlab.io/rell/bench-dev-ae4c82b2/report.html}); cross-project regression harness in CI running downstream applications' test suites against every compiler build.
@@ -150,7 +150,7 @@ Backend and compiler engineer. Inherited, as sole maintainer, a production block
 \textbf{Backend \& data} & PostgreSQL, jOOQ, pgvector, SQLite; SQL code generation; REST services (Quarkus, Ktor); OAuth 2.1; Gradle, JUnit, Git \\[0.2em]
 \textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR4, hand-written recursive descent); AST and IR design; serializable IR; lowering; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk and self-specializing interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL) \\[0.2em]
 \textbf{JVM \& performance} & Bytecode generation (ObjectWeb ASM); invokedynamic; class loading; allocation profiling; JNI, FFI; GraalVM, Truffle, native image; Kotlin Multiplatform; microbenchmarking; profiling \\[0.2em]
-\textbf{Domain} & Blockchain smart-contract languages; SQL codegen; developer tooling (LSP, IntelliJ plugins); scientific computing; Model Context Protocol; AI-assisted development \\
+\textbf{Domain} & Blockchain smart-contract languages; SQL codegen; developer tooling (LSP, IntelliJ platform); scientific computing; Model Context Protocol; AI-assisted development \\
 \end{tabular}
 \normalsize
 
