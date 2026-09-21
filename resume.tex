@@ -88,17 +88,17 @@ Backend and compiler engineer. Inherited, as sole maintainer, a production block
 % =============== EXPERIENCE ===============
 \section*{Experience}
 
-\role{Software Engineer}{ChromaWay}{Apr 2025 -- Present}{Blockchain infrastructure company (Stockholm, founded 2014) \textbullet{} Remote \textbullet{} Full-time (concurrent with online education)}
+\role{Software Engineer}{ChromaWay}{Apr 2025 -- Aug 2026}{Blockchain infrastructure company (Stockholm, founded 2014) \textbullet{} Remote \textbullet{} Full-time (concurrent with online education)}
 \begin{itemize}
   \item Was sole maintainer, from Feb 2026 after contributing from Apr 2025, of \href{https://github.com/ChromiaProject/rell}{Rell} (\url{github.com/ChromiaProject/rell}), the smart-contract language of the Chromia relational blockchain. \textasciitilde197K LOC Kotlin; tree-walking AST interpreter, operators lowered to SQL against PostgreSQL.
   \item New compiler IR \textemdash{} immutable, fully-resolved tree replacing a runtime-coupled AST. FlatBuffers wire format with bit-identical round-trip gate per CI build; drove the module split into separate frontend, IR, and runtime.
   \item Second backend on the IR: a self-specializing AST interpreter on GraalVM Truffle (partial-evaluation JIT); production-ready behind an opt-in flag, at full test parity. Published \href{https://github.com/CommanderTvis/writing/tree/main/rr-truffle-rewrite}{a write-up of that rewrite} (\url{github.com/CommanderTvis/writing/tree/main/rr-truffle-rewrite}): the IR and Truffle backend were my design, implemented over five weeks with AI coding agents.
-  \item New language features: lambda expressions (lowered by lambda lifting); \texttt{return}/\texttt{break}/\texttt{continue} as expressions (typed by a bottom type); \texttt{try\_call\_catch} (automatic database transaction rollback on error).
-  \item Built and operated the company's self-hosted GitLab CI runner fleet on AWS (\textasciitilde4.2K LOC OpenTofu/Terraform): persistent manager running \texttt{docker-autoscaler} with scale-from-zero Auto Scaling groups in an own VPC; S3 job cache, Docker Hub pull-through cache, least-privilege IAM. Scheduled Lambda reconstructing real billed per-project spend from Cost Explorer data, enforcing a hard monthly cap via IAM deny policy; Grafana dashboard as code.
+  \item New language features: lambda expressions; \texttt{return}/\texttt{break}/\texttt{continue} as expressions of bottom type; \texttt{try\_call\_catch}.
+  \item Built and operated the company's self-hosted GitLab CI runner fleet on AWS: persistent manager running \texttt{docker-autoscaler} with Auto Scaling groups in an own VPC; S3 job cache, Docker Hub pull-through cache. Scheduled Lambda reconstructing billed per-project spend from Cost Explorer data, enforcing a hard monthly cap; Grafana dashboard.
   \item PostgreSQL runtime: query-cancellation propagation, per-process schema isolation for parallel tests, removal of a catalog-lock deadlock under concurrent chain boot. Rebuilt SQL emission on jOOQ; replaced combinator parser with an ANTLR4 grammar shared with the IDE.
-  \item Maintained the LSP server, client stub generator, library documentation tool, and static-analysis linter and formatter (AST-pattern inspections with auto-fixes and per-inspection severities, including an SQL-performance-aware rule flagging row-by-row entity reads in loops).
-  \item Editor integrations: moved the IntelliJ plugin's parser onto \texttt{antlr4-intellij-adaptor} and its language support onto the built-in LSP client (JetBrains Marketplace plugin 22585, released from CI with Plugin Verifier gating). Multi-version support in IntelliJ and VS Code: per-version ANTLR parsers and language servers resolved against SHA-256 lockfiles.
-  \item Created the \href{https://chromiaproject.github.io/rell-playground/}{browser playground} (\url{chromiaproject.github.io/rell-playground}): a TypeScript single-page app over compiler and interpreter AOT-compiled to a single JavaScript module with TeaVM --- no backend --- with Run, REPL, and SQL dry-run modes.
+  \item Maintained the LSP server, library documentation tool, and static-analysis linter and formatter (AST-pattern inspections with auto-fixes and per-inspection severities, including an SQL-performance-aware rule flagging row-by-row entity reads in loops).
+  \item Editor integrations: moved the IntelliJ plugin's parser onto \texttt{antlr4-intellij-adaptor} and its language support onto the built-in LSP client (JetBrains Marketplace plugin 22585, released from CI with Plugin Verifier gating). Compatibility mode in IntelliJ and VS Code: per-version ANTLR parsers and language servers resolved against SHA-256 lockfiles.
+  \item Created the \href{https://chromiaproject.github.io/rell-playground/}{browser playground} (\url{chromiaproject.github.io/rell-playground}): a TypeScript single-page app over compiler and interpreter AOT-compiled to a JS module with TeaVM, without backend.
   \item Performance harness: JMH suites, Async Profiler automation, \href{https://chromaway.gitlab.io/rell/bench-dev-ae4c82b2/report.html}{per-commit performance reports} (\url{chromaway.gitlab.io/rell/bench-dev-ae4c82b2/report.html}); cross-project regression harness in CI running downstream applications' test suites against every compiler build.
 \end{itemize}
 
@@ -132,10 +132,10 @@ Backend and compiler engineer. Inherited, as sole maintainer, a production block
 \section*{Projects}
 
 \begin{itemize}
-  \item \textbf{Telegram dating product} \textemdash{} co-founded, Mar--Aug 2025; \textasciitilde20K LOC Python. Ran in production for \textasciitilde3 months on aiogram and PostgreSQL: paid subscriptions, LLM content moderation, percentage-rollout feature flags. GPT-4o generated each user's profile from structured interest data supplied by the \href{https://vox-lab.com/}{vox-lab.com} API; a separate 768-dimensional embedding from the same API drove pgvector nearest-neighbour matching.
-  \item \textbf{hue-manager} \textemdash{} self-hosted Philips Hue automation, solo, \textasciitilde7.7K LOC Kotlin: Quarkus backend as a GraalVM native image, Compose Multiplatform clients (desktop, Kotlin/Wasm web, Android), an MCP server behind OAuth 2.1 (Ory Hydra, PKCE). CI builds the native image and runs a smoke test that boots it and asserts nine HTTP contracts before deployment.
-  \item \textbf{JetBrains ThinkRail} \textemdash{} external contributor, in TypeScript, to \href{https://github.com/JetBrains/thinkrail}{JetBrains ThinkRail} (\url{github.com/JetBrains/thinkrail}), JetBrains' open-source spec-driven coding agent: cached open-review lookups across workspace switches, terminal-session PTY restore fixes, and editor UI on the specification tree, tab strip and tooltips.
-  \item \textbf{Self-hosted service platform} \textemdash{} 19 Docker Compose containers on one Hetzner host behind Caddy and a Cloudflare Tunnel, push-to-deploy from GitHub Actions, Vector/VictoriaLogs log aggregation, two Cloudflare Workers.
+  \item \textbf{Telegram dating product} \textemdash{} co-founded, Mar--Aug 2025; \textasciitilde20K LOC Python. Ran in production for \textasciitilde3 months on aiogram and PostgreSQL: LLM content moderation, A/B testing feature flags. GPT-4o generated each user's profile from structured interest data supplied by the \href{https://vox-lab.com/}{vox-lab.com} API; an embedding from the same data drove pgvector nearest-neighbour matching.
+  \item \textbf{hue-manager} \textemdash{} self-hosted Philips Hue automation: Quarkus backend, Compose Multiplatform clients (desktop, web, Android), an MCP server behind OAuth 2.1 (Ory Hydra, PKCE).
+  \item \textbf{JetBrains ThinkRail} \textemdash{} external contributor, in TypeScript, to \href{https://github.com/JetBrains/thinkrail}{JetBrains ThinkRail} (\url{github.com/JetBrains/thinkrail}), JetBrains' open-source spec-driven coding agent.
+  \item \textbf{Self-hosted service platform} \textemdash{} a dozen self-hosted services on Docker Compose, with Cloudflare Access/Tunnel and DNS managed via Terraform.
 \end{itemize}
 
 % =============== TECHNICAL SKILLS ===============
@@ -146,11 +146,11 @@ Backend and compiler engineer. Inherited, as sole maintainer, a production block
 \small
 \begin{tabular}{@{}p{3.4cm}@{\hspace{0.5em}}p{14cm}@{}}
 \textbf{Languages} & Kotlin (expert), Java, Python, SQL, C, C\# \\[0.2em]
-\textbf{Cloud \& infra} & AWS (EC2, Auto Scaling, VPC, IAM, Lambda, S3, SSM, CloudWatch); OpenTofu\slash Terraform; Docker Compose; GitLab CI, GitHub Actions; Grafana, VictoriaLogs; Cloudflare Workers, D1, Access; Caddy, Linux \\[0.2em]
-\textbf{Backend \& data} & PostgreSQL (query cancellation, schema isolation, deadlock analysis), jOOQ, pgvector, SQLite; SQL code generation; REST services (Quarkus, Ktor); OAuth 2.1 / OIDC; Gradle, JUnit, Git \\[0.2em]
-\textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR4, LL with error recovery); AST and IR design; immutable serializable IR (FlatBuffers); lowering; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk and self-specializing interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL); differential compiler testing \\[0.2em]
-\textbf{JVM \& performance} & Bytecode generation (ObjectWeb ASM); invokedynamic; inline/value classes; class loading; allocation profiling; JNI/FFI; GraalVM, Truffle, partial evaluation, native image; Kotlin Multiplatform; microbenchmarking (JMH); profiling (JFR, async-profiler); regression tracking in CI \\[0.2em]
-\textbf{Domain} & Blockchain smart-contract languages; SQL codegen; developer tooling (LSP, IntelliJ plugins); scientific computing, automatic differentiation; Model Context Protocol; AI-assisted development \\
+\textbf{Cloud \& infra} & AWS (EC2, Auto Scaling, Lambda, S3, SSM, CloudWatch); OpenTofu\slash Terraform; Docker Compose; GitLab CI, GitHub Actions; Grafana; Cloudflare Workers, D1, Access; Caddy, Linux \\[0.2em]
+\textbf{Backend \& data} & PostgreSQL, jOOQ, pgvector, SQLite; SQL code generation; REST services (Quarkus, Ktor); OAuth 2.1; Gradle, JUnit, Git \\[0.2em]
+\textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR4, hand-written recursive descent); AST and IR design; serializable IR; lowering; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk and self-specializing interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL) \\[0.2em]
+\textbf{JVM \& performance} & Bytecode generation (ObjectWeb ASM); invokedynamic; class loading; allocation profiling; JNI, FFI; GraalVM, Truffle, native image; Kotlin Multiplatform; microbenchmarking; profiling \\[0.2em]
+\textbf{Domain} & Blockchain smart-contract languages; SQL codegen; developer tooling (LSP, IntelliJ plugins); scientific computing; Model Context Protocol; AI-assisted development \\
 \end{tabular}
 \normalsize
 
@@ -166,7 +166,7 @@ Backend and compiler engineer. Inherited, as sole maintainer, a production block
 
 \begin{itemize}
   \item \textbf{Publications:} \textit{Compilation of mathematical expressions in Kotlin} --- arXiv, Feb 2021 (\href{https://arxiv.org/abs/2102.07924}{arxiv.org/abs/2102.07924}); \textit{NMPUD: a computer system for sampling and examining probability distributions} --- ITMM-2020 proceedings, Tomsk, 2021, with Prof. A. Voytishek. Talk: \textit{Dynamic compilation of mathematical expressions with Kotlin} --- SnowOne 2022 (JUGNsk), Novosibirsk.
-  \item \textbf{Winner, National Technology Olympiad} --- ``Automation of Business Processes'' track (1C partner case). HSE University, Moscow \textbullet{} Mar 2022.
+  \item \textbf{Winner, National Technology Olympiad} --- ``Automation of Business Processes'' track. HSE University, Moscow \textbullet{} Mar 2022.
   \item \textbf{Volunteering:} Translator at Translators without Borders (Apr 2022 -- Feb 2023, 11 months).
 \end{itemize}
 
