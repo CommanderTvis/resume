@@ -79,18 +79,18 @@
 
 % =============== SUMMARY ===============
 \noindent
-Backend and compiler engineer. Inherited, as sole maintainer, a production blockchain language (\textasciitilde197K LOC Kotlin) that compiles its database operators to SQL on PostgreSQL; re-architected it around a new immutable serializable IR and shipped a second backend on GraalVM Truffle. Built and operated the company's self-hosted CI runner fleet on AWS in OpenTofu/Terraform, with per-project cost attribution and an enforced spend cap. On the Kotlin/JVM compiler team at JetBrains from age 17; published research on JIT compilation.
+Backend and compiler engineer, seeking a full-time role. Inherited, as sole maintainer, a production compiler and query engine (\textasciitilde197K LOC Kotlin) that lowers a database language to SQL on PostgreSQL; re-architected it around a new immutable serializable IR and shipped a second backend on GraalVM Truffle. Built and operated the company's self-hosted CI runner fleet on AWS in OpenTofu/Terraform, with per-project cost attribution and an enforced spend cap. On the Kotlin/JVM compiler team at JetBrains from age 17; published research on JIT compilation.
 
 \vspace{0.3em}
 \noindent
-\textbf{Languages:} native Russian, fluent English \quad\textbar\quad \textbf{Legal status:} EU Blue Card (Germany)
+\textbf{Languages:} fluent English \quad\textbar\quad \textbf{Legal status:} EU Blue Card (Germany)
 
 % =============== EXPERIENCE ===============
 \section*{Experience}
 
 \role{Software Engineer}{ChromaWay}{Apr 2025 -- Aug 2026}{Blockchain infrastructure company (Stockholm, founded 2014) \textbullet{} Remote \textbullet{} Full-time (concurrent with online education)}
 \begin{itemize}
-  \item Was sole maintainer, from Feb 2026 after contributing from Apr 2025, of \href{https://github.com/ChromiaProject/rell}{Rell} (\url{github.com/ChromiaProject/rell}), the smart-contract language of the Chromia relational blockchain. \textasciitilde197K LOC Kotlin; tree-walking AST interpreter, operators lowered to SQL against PostgreSQL.
+  \item Was sole maintainer, from Feb 2026 after contributing from Apr 2025, of \href{https://github.com/ChromiaProject/rell}{Rell} (\url{github.com/ChromiaProject/rell}), a compiler and query engine whose database operators are lowered to SQL against PostgreSQL (the smart-contract language of the Chromia blockchain). \textasciitilde197K LOC Kotlin; tree-walking AST interpreter.
   \item New compiler IR \textemdash{} immutable, fully-resolved tree replacing a runtime-coupled AST. FlatBuffers wire format with bit-identical round-trip gate per CI build; drove the module split into separate frontend, IR, and runtime.
   \item Second backend on the IR: a self-specializing AST interpreter on GraalVM Truffle (partial-evaluation JIT); production-ready behind an opt-in flag, at full test parity. Published \href{https://github.com/CommanderTvis/writing/tree/main/rr-truffle-rewrite}{a write-up of that rewrite} (\url{github.com/CommanderTvis/writing/tree/main/rr-truffle-rewrite}): the IR and Truffle backend were my design, implemented over five weeks with AI coding agents.
   \item New language features: lambda expressions; \texttt{return}/\texttt{break}/\texttt{continue} as expressions of bottom type; \texttt{try\_call\_catch}.
@@ -132,9 +132,8 @@ Backend and compiler engineer. Inherited, as sole maintainer, a production block
 \section*{Projects}
 
 \begin{itemize}
-  \item \textbf{Telegram dating product} \textemdash{} co-founded, Mar--Aug 2025; \textasciitilde20K LOC Python. Ran in production for \textasciitilde3 months on aiogram and PostgreSQL: LLM content moderation, A/B testing feature flags. GPT-4o generated each user's profile from structured interest data supplied by the \href{https://vox-lab.com/}{vox-lab.com} API; an embedding from the same data drove pgvector nearest-neighbour matching.
-  \item \textbf{hue-manager} \textemdash{} self-hosted Philips Hue automation: Quarkus backend, Compose Multiplatform clients (desktop, web, Android), an MCP server behind OAuth 2.1 (Ory Hydra, PKCE).
-  \item \textbf{JetBrains ThinkRail} \textemdash{} external contributor, in TypeScript, to \href{https://github.com/JetBrains/thinkrail}{JetBrains ThinkRail} (\url{github.com/JetBrains/thinkrail}), JetBrains' open-source spec-driven coding agent.
+  \item \textbf{JetBrains ThinkRail} \textemdash{} external contributor, in TypeScript, to \href{https://github.com/JetBrains/thinkrail}{JetBrains ThinkRail} (\url{github.com/JetBrains/thinkrail}), JetBrains' open-source spec-driven coding agent. 12 merged pull requests: terminal fixes (PTY redraw on reattach for alt-screen TUIs, mouse-tracking replay, frozen terminal recovery), server fix restoring chats whose saved model is unavailable, git branch pickers across all remotes, review-lookup caching across workspace switches, and web UI changes.
+  \item \textbf{Other projects} \textemdash{} a Telegram dating product co-founded and run in production on aiogram, PostgreSQL and pgvector (Mar--Aug 2025); hue-manager, self-hosted Philips Hue automation on Quarkus and Compose Multiplatform with an MCP server.
   \item \textbf{Self-hosted service platform} \textemdash{} a dozen self-hosted services on Docker Compose, with Cloudflare Access/Tunnel and DNS managed via Terraform.
 \end{itemize}
 
@@ -150,14 +149,14 @@ Backend and compiler engineer. Inherited, as sole maintainer, a production block
 \textbf{Backend \& data} & PostgreSQL, jOOQ, pgvector, SQLite; SQL code generation; REST services (Quarkus, Ktor); OAuth 2.1; Gradle, JUnit, Git \\[0.2em]
 \textbf{Compiler engineering} & Language design; lexer/parser implementation (ANTLR4, hand-written recursive descent); AST and IR design; serializable IR; lowering; optimization passes (constant folding, inlining, boxing/unboxing elimination); tree-walk and self-specializing interpreters; multi-target backends (JVM bytecode, JavaScript, WebAssembly, SQL) \\[0.2em]
 \textbf{JVM \& performance} & Bytecode generation (ObjectWeb ASM); invokedynamic; class loading; allocation profiling; JNI, FFI; GraalVM, Truffle, native image; Kotlin Multiplatform; microbenchmarking; profiling \\[0.2em]
-\textbf{Domain} & Blockchain smart-contract languages; SQL codegen; developer tooling (LSP, IntelliJ platform); scientific computing; Model Context Protocol; AI-assisted development \\
+\textbf{Domain} & SQL codegen; query engines; developer tooling (LSP, IntelliJ platform); scientific computing; Model Context Protocol; AI-assisted development \\
 \end{tabular}
 \normalsize
 
 % =============== EDUCATION ===============
 \section*{Education}
 
-\role{BSc Applied Computer Science}{Constructor University Bremen}{Sep 2023 -- Aug 2027}{}
+\role{BSc Applied Computer Science (online)}{Constructor University Bremen}{Sep 2023 -- Aug 2027}{}
 
 \role{Applied Mathematics \& CS}{Lomonosov Moscow State University, Yerevan Branch}{Sep 2022 -- Jun 2023}{}
 
